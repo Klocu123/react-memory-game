@@ -1,28 +1,13 @@
-## React Memory Game
+React Memory Game
+Jest to aplikacja Memory Game, którą stworzyłem za pomocą Vite, Typescript i Sweetalert 2.
 
-Bu proje [Vite](https://vitejs.dev/), Typescript ve Sweetalert 2 kullanarak geliştirdiğim Memory Game uygulamasıdır.
-
-## Kurulum
-
-İlk olarak aşağıdaki komutu kopyalanız. Ardından terminal ekranını açarak, projenin kurulmasını istediğiniz bir alana gelerek yapıştırıp çalıştırınız.
-
-```sh
+Instalacja
+Najpierw skopiuj poniższe polecenie. Następnie otwórz terminal, przejdź do lokalizacji, w której chcesz zainstalować projekt, wklej skopiowane polecenie i uruchom je.
 git clone https://github.com/harundogdu/react-memory-game.git
-```
 
-Klonlama işleminin ardından backend işlemleri için terminal ekranına projenin adını yazarak, aşağıda bulunan kodu yapıştırıp çalıştırınız.
-
-```sh
+Po sklonowaniu projektu, aby przeprowadzić dalszą instalację, wpisz poniższe polecenie w terminalu:
 cd react-memory-game && npm install
-```
 
-## Çalıştırma
-
-Projeyi çalıştırmak için ilgili klasörlere gelip, aşağıdaki komutu yazmanız yeterli olacaktır.
-```sh
+Uruchamianie
+Aby uruchomić projekt, przejdź do odpowiedniego katalogu i wpisz poniższe polecenie:
 npm start
-```
-
-## Daha fazlası
-
-Daha fazlası ve aklınıza takılan herhangi bir soru için için bana kişisel [web sitem](https://harundogdu.com/) üzerinden ulaşabilir, "Pull Request" isteklerinde bulunabilirsiniz.
