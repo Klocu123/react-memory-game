@@ -2,9 +2,16 @@ import { createContext, useState, useContext, useEffect } from 'react';
 import { IMemoryCard } from '../types/memoryCard';
 import { CardArray } from '../utils/fake_db';
 
+
 type MemoryProviderType = {
   children: React.ReactNode;
 };
+
+type Score = {
+  name: string;
+  moves: number;
+  time: number;
+}
 
 type MemoryContextType = {
   cards: IMemoryCard[];
@@ -34,9 +41,25 @@ const MemoryProvider = ({ children }: MemoryProviderType) => {
   const [choiceOne, setChoiceOne] = useState<IMemoryCard | null>(null);
   const [choiceTwo, setChoiceTwo] = useState<IMemoryCard | null>(null);
   const [disabledCards, setDisabledCards] = useState<boolean>(false);
+  const [leaderboard, setLeaderboard] = useState<Score[]>([]);
+  const [playerName, setPlayerName] = useState<string>('');
+  const [time, setTime] = useState<number>(0);
+  const [isPlaying, setsIsPlaying] = useState<boolean>(false);
+  const [moves, setMoves] = useState<number>(0);
+
+  useEffect(() => {
+    let timer: NodeJS.timer;
+    if (isPlaying) {
+      timer = setInterval(()=> setTime(time => +1), 1000);
+    }
+    return () => clearInterval(timer);
+  }, [isPlaying])
 
   const checkWin = () => {
     const isWin = cards.every(card => card.isMatched);
+    if (isWin) {
+      endGame();
+    }
     return isWin;
   };
 
@@ -54,6 +77,9 @@ const MemoryProvider = ({ children }: MemoryProviderType) => {
       });
 
     setCards(shuffledCards);
+    setTurn(0);
+    setTime(0);
+    setsIsPlaying(true);
   };
 
   /**
@@ -96,10 +122,6 @@ const MemoryProvider = ({ children }: MemoryProviderType) => {
    * It shuffles the cards and sets the turn to 0
    * @returns void
    */
-  const startGame = () => {
-    shuffleCards();
-    setTurn(0);
-  };
 
   /**
    * @description
@@ -141,6 +163,17 @@ const MemoryProvider = ({ children }: MemoryProviderType) => {
    * This function is used to check if the cards are a match
    * @returns void
    */
+
+  const endGame = () => {
+    setsIsPlaying(false);
+    const newScore: Score = { name: playerName, moves, time };
+    const updateLeaderboard = [...leaderboard, newScore].sort(
+      (a, b) => a.moves - b.moves || a.time - b.time
+    );
+    setLeaderboard(updateLeaderboard);
+    setPlayerName('')
+  }
+
   useEffect(() => {
     shuffleCards();
   }, []);
@@ -148,7 +181,7 @@ const MemoryProvider = ({ children }: MemoryProviderType) => {
   const value = {
     cards,
     setCards,
-    startGame,
+    startGame: shuffleCards,
     turn,
     handleCardItemClick,
     disabledCards,
