@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { CardContainer } from './containers';
 import { useMemoryCards } from './contexts/memoryContext';
+import Leaderboard from './components/leaderboard';
 
 type Scoring = {
   name: string;
@@ -25,14 +25,12 @@ function App() {
 
   return (
     <div className='App'>  
-      {!isPlaying ? (
         <div>
           <h1>Gra Memory</h1>
           <input type='text' placeholder='Wpisz tu swoją nazwę' value={name} onChange={(e) => setPlayerName(e.target.value)}></input>
           <button onClick={HandleStartGame} disabled={!name}>Rozpocznij Grę</button>
-          //TODO: leaderboard komponent
-        </div>
-      )}
+          <Leaderboard leaderboard={leaderboard} />
+        </div>        
     </div>
   );
 }
