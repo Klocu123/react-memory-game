@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { useMemoryCards } from './contexts/memoryContext';
 import Leaderboard from './components/leaderboard';
+import MemoryGame from './components/memoryGame';
 
 type Scoring = {
   name: string;
@@ -30,7 +31,8 @@ function App() {
           <input type='text' placeholder='Wpisz tu swoją nazwę' value={name} onChange={(e) => setPlayerName(e.target.value)}></input>
           <button onClick={HandleStartGame} disabled={!name}>Rozpocznij Grę</button>
           <Leaderboard leaderboard={leaderboard} />
-        </div>        
+        </div>   
+        <MemoryGame onGameEnd={() =>setsIsPlaying(false)} />     
     </div>
   );
 }
